@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Ensuring uniform font across all pages */
+        }
+        h1 {
+            color: #4A90E2; /* Using the same blue color for headers */
+            text-align: center; /* Center-align the header */
+        }
+        form {
+            max-width: 600px; /* Limiting form width for better aesthetics */
+            margin: 20px auto; /* Center the form on the page with some margin */
+            padding: 20px; /* Adding padding inside the form */
+            border: 1px solid #ccc; /* A subtle border */
+            border-radius: 8px; /* Rounded corners for the form */
+            background-color: #f9f9f9; /* A light background for the form */
+        }
+        button {
+            background-color: #4CAF50; /* A consistent green background for buttons */
+            color: white; /* White text for clarity and contrast */
+            padding: 12px 20px; /* Padding for a comfortable click area */
+            border: none; /* No border for a cleaner look */
+            border-radius: 4px; /* Rounded corners for the button */
+            cursor: pointer; /* Pointer cursor to indicate clickable */
+            width: 100%; /* Full width to match the form's width */
+        }
+        button:hover {
+            background-color: #45a049; /* A darker green on hover for a subtle effect */
+        }
+    </style>
+
+    <h1>Send Money</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form | crispy }}  <!-- This will render the form fields with nice formatting -->
+        <button type="submit">Send Money</button>
+    </form>
+{% endblock %}
+
+{% comment 'base.html'%}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <h1>Send Money</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button type="submit">Send Money</button>
+    </form>
+{% endblock%}
+{% endcomment %}

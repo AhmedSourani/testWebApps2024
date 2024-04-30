@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Consistent font family across all pages */
+        }
+        h1, h2 {
+            color: #4A90E2; /* Blue color for headers, consistent with other pages */
+            text-align: center; /* Center-align headers */
+        }
+        table {
+            width: 80%; /* Appropriate table width for content */
+            margin: 20px auto; /* Center tables horizontally */
+            border-collapse: collapse; /* Ensures borders between cells are merged */
+            background-color: #f9f9f9; /* Light background for better readability */
+        }
+        th, td {
+            border: 1px solid #ccc; /* Light gray border for cells */
+            padding: 8px; /* Adequate padding within cells for content */
+            text-align: left; /* Aligns text to the left within cells */
+        }
+        th {
+            background-color: #4CAF50; /* Green background for headers */
+            color: white; /* White text for contrast and visibility */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Zebra striping for easier reading of rows */
+        }
+        p {
+            text-align: center; /* Centers paragraph text */
+            color: #4A90E2; /* Blue text maintains consistency with headers */
+        }
+    </style>
+
+    <h1>Transactions</h1>
+
+    {% if transaction_in %}
+        <h2>Incoming Transactions</h2>
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Date</th>
+            </tr>
+            {% for transaction in transaction_in %}
+                <tr>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.sender }}</td>
+                    <td>{{ transaction.receiver }}</td>
+                    <td>{{ transaction.date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No incoming transactions to show.</p>
+    {% endif %}
+
+    {% if transaction_out %}
+        <h2>Outgoing Transactions</h2>
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Date</th>
+            </tr>
+            {% for transaction in transaction_out %}
+                <tr>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.sender }}</td>
+                    <td>{{ transaction.receiver }}</td>
+                    <td>{{ transaction.date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No outgoing transactions to show.</p>
+    {% endif %}
+
+{% endblock %}
+
+
+
+{%comment extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+    <h1>Transactions</h1>
+
+    {% if transaction_in %}
+        <h2>Incoming Transactions</h2>
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Date</th>
+            </tr>
+            {% for transaction in transaction_in %}
+            <tr>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.sender }}</td>
+                <td>{{ transaction.receiver }}</td>
+                <td>{{ transaction.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No incoming transactions to show.</p>
+    {% endif %}
+
+    {% if transaction_out %}
+        <h2>Outgoing Transactions</h2>
+        <table>
+          <table>
+              <tr>
+                  <th>Amount</th>
+                  <th>Sender</th>
+                  <th>Receiver</th>
+                  <th>Date</th>
+              </tr>
+              {% for transaction in transaction_out %}
+              <tr>
+                  <td>{{ transaction.amount }}</td>
+                  <td>{{ transaction.sender }}</td>
+                  <td>{{ transaction.receiver }}</td>
+                  <td>{{ transaction.date }}</td>
+              </tr>
+              {% endfor %}
+          </table>
+        </table>
+    {% else %}
+        <p>No outgoing transactions to show.</p>
+    {% endif %}
+
+{% endblock %}
+{% endcomment %}

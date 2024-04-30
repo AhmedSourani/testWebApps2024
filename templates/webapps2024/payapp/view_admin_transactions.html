@@ -1,0 +1,93 @@
+{% comment extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+    <h1>Admin Transactions</h1>
+
+    {% if transactions %}
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Date</th>
+            </tr>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.sender }}</td>
+                <td>{{ transaction.receiver }}</td>
+                <td>{{ transaction.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No transactions.</p>
+    {% endif %}
+
+{% endblock %}
+
+{% endcomment %}
+
+
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Ensuring uniform font across all pages */
+        }
+        h1 {
+            color: #4A90E2; /* Using the same blue color for headers */
+            text-align: center; /* Center-align the header */
+        }
+        table {
+            width: 80%; /* Suitable table width */
+            margin: 20px auto; /* Center tables horizontally */
+            border-collapse: collapse; /* Neat table borders */
+            background-color: #f9f9f9; /* Light background for readability */
+        }
+        th, td {
+            border: 1px solid #ccc; /* Light gray border for definition */
+            padding: 8px; /* Spacing within cells */
+            text-align: left; /* Align text to the left within cells */
+        }
+        th {
+            background-color: #4CAF50; /* Green background for table headers */
+            color: white; /* White text for contrast */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Zebra striping for rows */
+        }
+        p {
+            text-align: center; /* Center-align paragraphs for consistency */
+            color: #4A90E2; /* Blue text for visual consistency */
+        }
+    </style>
+
+    <h1>Admin Transactions</h1>
+
+    {% if transactions %}
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Date</th>
+            </tr>
+            {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.sender }}</td>
+                    <td>{{ transaction.receiver }}</td>
+                    <td>{{ transaction.date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No transactions.</p>
+    {% endif %}
+
+{% endblock %}

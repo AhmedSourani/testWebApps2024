@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Set a clean and modern font */
+        }
+        h1 {
+            color: #4A90E2; /* A pleasant blue for the header */
+            text-align: center; /* Center-align the header */
+        }
+        form {
+            max-width: 600px; /* Limit form width for better aesthetics */
+            margin: 20px auto; /* Center the form on the page with some margin */
+            padding: 20px; /* Add padding inside the form */
+            border: 1px solid #ccc; /* A subtle border */
+            border-radius: 8px; /* Rounded corners for the form */
+            background-color: #f9f9f9; /* A light background for the form */
+        }
+        button {
+            background-color: #4CAF50; /* A green background makes the button stand out */
+            color: white; /* White text for the button */
+            padding: 12px 20px; /* Padding for button size */
+            border: none; /* Remove border */
+            border-radius: 4px; /* Rounded corners for the button */
+            cursor: pointer; /* Pointer cursor on hover */
+            width: 100%; /* Full width */
+        }
+        button:hover {
+            background-color: #45a049; /* A slightly darker green on hover */
+        }
+    </style>
+
+    <h1>Request Money</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button type="submit">Request Money</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Uniform font across all pages */
+        }
+        h1 {
+            color: #4A90E2; /* Consistent blue for headers */
+            text-align: center; /* Center-align the header */
+        }
+        table {
+            width: 80%; /* Appropriate table width */
+            margin: 20px auto; /* Center tables horizontally */
+            border-collapse: collapse; /* Clean table borders */
+            background-color: #f9f9f9; /* Light background for readability */
+        }
+        th, td {
+            border: 1px solid #ccc; /* Subtle gray border for definition */
+            padding: 8px; /* Comfortable spacing within cells */
+            text-align: left; /* Left-aligned text within cells */
+        }
+        th {
+            background-color: #4CAF50; /* Green background for table headers */
+            color: white; /* White text for contrast */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Zebra striping for rows */
+        }
+        button {
+            background-color: #4CAF50; /* Green background to match headers */
+            color: white; /* Text color for readability */
+            border: none; /* No border for a cleaner look */
+            border-radius: 4px; /* Slightly rounded corners */
+            padding: 6px 12px; /* Padding for button size */
+            cursor: pointer; /* Indicates clickable */
+            margin-right: 5px; /* Space between buttons */
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        p {
+            text-align: center; /* Center-align paragraphs for consistency */
+            color: #4A90E2; /* Blue text for visual consistency */
+        }
+    </style>
+
+    <h1>Requests</h1>
+
+    {% if requests %}
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Pending</th>
+                <th>Accepted</th>
+                <th>Requester</th>
+                <th>Giver</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            {% for request in requests %}
+                <tr>
+                    <td>{{ request.amount }}</td>
+                    <td>{{ request.pending }}</td>
+                    <td>{{ request.accepted }}</td>
+                    <td>{{ request.requester }}</td>
+                    <td>{{ request.giver }}</td>
+                    <td>{{ request.date }}</td>
+                    <td>
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" value="accept {{ request.id }}" name="confirm">Accept</button>
+                            <button type="submit" value="reject {{ request.id }}" name="confirm">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No requests to show.</p>
+    {% endif %}
+
+{% endblock %}
+
+
+
+{% comment extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+    <h1>Requests</h1>
+
+    {% if requests %}
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Pending</th>
+                <th>Accepted</th>
+                <th>Requester</th>
+                <th>Giver</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.amount }}</td>
+                <td>{{ request.pending }}</td>
+                <td>{{ request.accepted }}</td>
+                <td>{{ request.requester }}</td>
+                <td>{{ request.giver }}</td>
+                <td>{{ request.date }}</td>
+                <td><form method="post">
+                    {% csrf_token %}
+                    <button type="submit" value="accept {{ request.id }}" name="confirm">Accept</button>
+                    <button type="submit" value="reject {{ request.id }}" name="confirm">Reject</button>
+                </form></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No requests to show.</p>
+    {% endif %}
+
+{% endblock %}
+
+{% endcomment %}

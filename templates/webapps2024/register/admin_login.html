@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Consistent font family across all pages */
+        }
+        h1 {
+            color: #4A90E2; /* Blue color for the header, consistent with other admin pages */
+            text-align: center; /* Center-align the header for consistency */
+        }
+        form {
+            width: 50%; /* Set form width to 50% of the container */
+            margin: 0 auto; /* Center form horizontally and vertically */
+            padding: 20px; /* Add padding inside the form */
+            border: 1px solid #ccc; /* Subtle border around the form */
+            border-radius: 8px; /* Rounded corners for the form */
+            background-color: #f9f9f9; /* Light background color for form */
+        }
+        button {
+            background-color: #4CAF50; /* Consistent green background for buttons */
+            color: white; /* White text for readability */
+            padding: 10px 20px; /* Adequate padding for the button */
+            border: none; /* No border for a cleaner look */
+            border-radius: 4px; /* Rounded corners for the button */
+            cursor: pointer; /* Pointer cursor to indicate clickable */
+            width: 100%; /* Full width for better mobile responsiveness */
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover for visual feedback */
+        }
+        p {
+            color: #D9534F; /* Red color for error messages */
+            text-align: center; /* Center-align text for better readability */
+        }
+    </style>
+
+    <h1>Login as Admin</h1>
+
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p | crispy }} <!-- This will render the form fields formatted neatly -->
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}
+
+
+{%comment extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <h1>Login as Admin</h1>
+
+    {% if form.errors %}
+        <p>Your username and password didnt match</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p | crispy }}
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}
+{% endcomment %}
