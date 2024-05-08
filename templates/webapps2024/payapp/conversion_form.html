@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1, h2 {
+            color: #4A90E2;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #f9f9f9;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        p {
+            text-align: center;
+            color: #4A90E2;
+        }
+        .form-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+
+    <h1>Currency Conversion</h1>
+
+    <!-- Currency Conversion Section -->
+    <div class="form-container">
+        <h2>Currency Conversion</h2>
+        <form id="conversionForm">
+            <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+            <select id="currency1" name="currency1">
+                <option value="USD">US Dollar</option>
+                <option value="EUR">Euro</option>
+                <option value="GBP">British Pound</option>
+            </select>
+            to
+            <select id="currency2" name="currency2">
+                <option value="EUR">Euro</option>
+                <option value="USD">US Dollar</option>
+                <option value="GBP">British Pound</option>
+            </select>
+            <button type="submit">Convert</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.getElementById("conversionForm").onsubmit = function(event) {
+            event.preventDefault();
+            var amount = $('#amount').val();
+            var currency1 = $('#currency1').val();
+            var currency2 = $('#currency2').val();
+            $.get(`/payapp/conversion/${currency1}/${currency2}/${amount}/`, function(data) {
+                $('#result').html(`Converted Amount: ${data.converted_amount} ${currency2}`);
+            }).fail(function() {
+                $('#result').html("Error: Could not perform conversion.");
+            });
+        };
+    </script>
+
+{% endblock %}
+
+
+
+
+
+{% comment extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Set a clean and modern font */
+        }
+        h1 {
+            color: #4A90E2; /* A pleasant blue for the header */
+            text-align: center; /* Center-align the header */
+        }
+        form {
+            max-width: 600px; /* Limit form width for better aesthetics */
+            margin: 20px auto; /* Center the form on the page with some margin */
+            padding: 20px; /* Add padding inside the form */
+            border: 1px solid #ccc; /* A subtle border */
+            border-radius: 8px; /* Rounded corners for the form */
+            background-color: #f9f9f9; /* A light background for the form */
+        }
+        button {
+            background-color: #4CAF50; /* A green background makes the button stand out */
+            color: white; /* White text for the button */
+            padding: 12px 20px; /* Padding for button size */
+            border: none; /* Remove border */
+            border-radius: 4px; /* Rounded corners for the button */
+            cursor: pointer; /* Pointer cursor on hover */
+            width: 100%; /* Full width */
+        }
+        button:hover {
+            background-color: #45a049; /* A slightly darker green on hover */
+        }
+    </style>
+
+    <h1>Currency Conversion</h1>
+
+    {% if user.is_authenticated %}
+        <p>User balance: {{ balance }}</p>
+    {% else %}
+        <p>Login or register</p>
+    {% endif %}
+
+{% endblock %}
+{% endcomment %}

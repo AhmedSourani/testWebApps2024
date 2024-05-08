@@ -1,0 +1,61 @@
+{# This template extends 'base.html', utilizing a common layout across the site for consistency #}
+{% extends 'base.html' %}
+{# Load Crispy Forms library to utilize enhanced form styling capabilities in Django #}
+{% load crispy_forms_filters %}
+{# Define the content block where the specific content for this page will be rendered #}
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Consistent font family across all pages */
+        }
+        h1 {
+            color: #4A90E2; /* Consistent blue color for headers, aligned with other admin pages */
+            text-align: center; /* Center-align the header for uniformity */
+        }
+        form {
+            width: 50%; /* Suitable width for the form */
+            margin: 20px auto; /* Center form horizontally and add some vertical space */
+            padding: 20px; /* Padding inside the form for spacing */
+            border: 1px solid #ccc; /* Light gray border around the form */
+            border-radius: 8px; /* Rounded corners for a smoother look */
+            background-color: #f9f9f9; /* Light background color for the form */
+        }
+        button {
+            background-color: #4CAF50; /* Green background for the button to match other forms */
+            color: white; /* White text for contrast and visibility */
+            padding: 10px 20px; /* Comfortable padding for ease of clicking */
+            border: none; /* No border for a cleaner look */
+            border-radius: 4px; /* Slightly rounded corners for the button */
+            cursor: pointer; /* Pointer cursor to indicate it's clickable */
+            width: 100%; /* Full width to match the form’s width */
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover for visual feedback */
+        }
+    </style>
+
+    <h1>Admin Registration</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+{% endblock %}
+
+
+
+
+
+{%comment extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <h1>Admin Registration</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+{% endblock %}
+{% endcomment %}
