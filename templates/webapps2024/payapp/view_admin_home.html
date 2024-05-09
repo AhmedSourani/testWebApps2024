@@ -1,6 +1,10 @@
+{# Extend the base layout to include common structural elements defined in 'base.html' #}
 {% extends 'base.html' %}
+
+{# Load additional functionality for rendering forms with improved styling #}
 {% load crispy_forms_filters %}
 
+{# Start defining the specific content for this page within the content block #}
 {% block content %}
     <style>
         body {
@@ -35,8 +39,9 @@
 
     <h1>Admin Home</h1>
 
+    {# Conditional block to display user information if any users exist #}
     {% if users %}
-        <h2>Users</h2>
+        <h2>Users</h2> <!-- Display message if no users are found -->
         <table>
             <tr>
                 <th>Username</th>
@@ -61,6 +66,7 @@
         <p>No Users</p>
     {% endif %}
 
+    {# Conditional block to display admin information if any admins are registered #}
     {% if admins %}
         <h2>Admins</h2>
         <table>
@@ -80,7 +86,7 @@
             {% endfor %}
         </table>
     {% else %}
-        <p>No Admins</p>
+        <p>No Admins</p> <!-- Display message if no admins are found -->
     {% endif %}
 
 {% endblock %}

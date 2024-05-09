@@ -1,6 +1,10 @@
+{# Use 'base.html' as the foundation for this page's layout, pulling in common elements like headers and footers #}
 {% extends 'base.html' %}
+
+{# Load Crispy Forms to style Django forms in a clean and attractive manner #}
 {% load crispy_forms_filters %}
 
+{# Begin the content block where the specific content for this page is defined #}
 {% block content %}
     <style>
         body {
@@ -46,7 +50,7 @@
         }
     </style>
 
-    <h1>Requests</h1>
+    <h1>Requests</h1>  <!-- This header clearly labels the page's purpose as handling requests -->
 
     {% if requests %}
         <table>
@@ -78,7 +82,7 @@
             {% endfor %}
         </table>
     {% else %}
-        <p>No requests to show.</p>
+        <p>No requests to show.</p> <!-- Display a friendly message if no requests are present -->
     {% endif %}
 
 {% endblock %}

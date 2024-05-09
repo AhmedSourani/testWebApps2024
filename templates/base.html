@@ -1,7 +1,4 @@
 {% load static %}
-{% load crispy_forms_tags %}
-{% load crispy_forms_filters %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,56 +8,128 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'webapps2024/payapp_styles.css' %}">
 </head>
+<body>
 
+<style>
+    /* Overall background and color theme for the navbar */
+
+    .navbar {
+        background-color: #45a049; /* Soft blue background */
+        color: white;
+        border-bottom: 20px solid #2C68B2; /* Darker blue for contrast */
+        display: flex; /* Ensures flexbox properties for alignment */
+        align-items: center; /* Vertically aligns items in the navbar */
+        justify-content: center; /* Horizontally centers the navigation links */
+        padding-top: 20px; /* Adds 10px padding below the border */
+        padding-bottom: 20px; /* Adds 10px padding below the border */
+        margin-bottom: 20px; /* Additional space below the navbar to separate it from subsequent content */
+
+    }
+
+    /* Navbar brand styling for better visibility and branding */
+    .navbar-brand {
+        color: #45a049;
+        font-weight: bold;
+        font-size: 2.5em; /* Slightly larger for emphasis */
+        margin-right: auto; /* Keeps brand on the left and pushes nav items to center */
+    }
+
+    /* Navbar link styling */
+    .nav-link {
+        color: white;
+        transition: color 0.3s ease-in-out; /* Smooth transition for hover effect */
+        background-color: #2C68B2; /* Darker blue for button-like appearance */
+        border-radius: 10px; /* Rounded corners for button-like appearance */
+        padding: 10px 15px; /* Padding to form button shapes */
+        margin: 0 10px; /* Space between buttons */
+        font-size: revert;
+        font-weight: bold;
+    }
+
+    /* Change color on hover to provide visual feedback */
+    .nav-link:hover,
+    .nav-link:focus {
+        background-color: #45a049; /* Even darker on hover */
+        color: #FFFFFF; /* Keeps text white for readability */
+    }
+
+    /* Responsive toggle button styled to fit the navbar theme */
+    .navbar-toggler {
+        border-color: #B9DBF9; /* Light blue to stand out against the navbar */
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); /* Custom SVG for the toggler icon with white color */
+    }
+
+    /* Media query for larger screens to adjust navbar padding */
+    @media (min-width: 992px) {
+        .navbar {
+            justify-content: space-between; /* Adjusts spacing to better fit larger screens */
+        }
+    }
+</style>
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">WebApps 2024</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="False" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             {% if user.is_authenticated %}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/webapps2024/home">Home</a>
-                </li>
+                {% if user.is_superuser or user.is_staff %}
+                    <!-- Superuser/Admin-specific navigation -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/webapps2024/payapp/admin_home">Admin Home</a>
+                                        </li>
+                    {% if user.is_superuser %}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="/webapps2024/payapp/admin_registration">Register Admin</a>#}
+{#                        </li>#}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/webapps2024/register/admin_registration">Register Admin</a>
+                        </li>
+                    {% endif %}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/webapps2024/payapp/admin_requests">View All Requests</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/webapps2024/payapp/admin_transactions">View All Transactions</a>
+                                        </li>
+                {% else %}
+                    <!-- Normal user navigation -->
+                    <br>
+                    <br>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/webapps2024/home">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/webapps2024/payapp/transactions">View Transactions</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/webapps2024/payapp/send">Send Money</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/webapps2024/payapp/request">Request Money</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/webapps2024/payapp/requests">View Requests</a>
+                                    </li>
+                    
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="/webapps2024/logout">Logout</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Welcome, {{user.username}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/webapps2024/payapp/send">Send Money</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/webapps2024/payapp/request">Request Money</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/webapps2024/payapp/transactions">View Transactions</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/webapps2024/payapp/requests">View Requests</a>
-                </li>
-
-                {% if user.is_superuser %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/webapps2024/payapp/admin_home">Admin Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/webapps2024/payapp/admin_transactions">View All Transactions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/webapps2024/payapp/admin_requests">View All Requests</a>
-                    </li>
-                {% endif %}
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="/webapps2024/login">Login</a>
                 </li>
             {% endif %}
-        </table>
+        </ul>
     </div>
 </nav>
 
@@ -78,3 +147,165 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% load static %}#}
+{#{% load crispy_forms_tags %}#}
+{#{% load crispy_forms_filters %}#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="utf-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+{#    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">#}
+{#    <title>{% block title %}{% endblock %}</title>#}
+{#    <link rel="stylesheet" href="{% static 'webapps2024/payapp_styles.css' %}">#}
+{#</head>#}
+{##}
+{##}
+{#<style>#}
+{#    /* Overall background and color theme for the navbar */#}
+{#    #}
+{#    .navbar {#}
+{#        background-color: #45a049; /* Soft blue background */#}
+{#        color: white;#}
+{#        border-bottom: 20px solid #2C68B2; /* Darker blue for contrast */#}
+{#        display: flex; /* Ensures flexbox properties for alignment */#}
+{#        align-items: center; /* Vertically aligns items in the navbar */#}
+{#        justify-content: center; /* Horizontally centers the navigation links */#}
+{#        padding-top: 20px; /* Adds 10px padding below the border */#}
+{#        padding-bottom: 20px; /* Adds 10px padding below the border */#}
+{#        margin-bottom: 20px; /* Additional space below the navbar to separate it from subsequent content */#}
+{#        #}
+{#    }#}
+{##}
+{#    /* Navbar brand styling for better visibility and branding */#}
+{#    .navbar-brand {#}
+{#        color: #45a049;#}
+{#        font-weight: bold;#}
+{#        font-size: 2.5em; /* Slightly larger for emphasis */#}
+{#        margin-right: auto; /* Keeps brand on the left and pushes nav items to center */#}
+{#    }#}
+{##}
+{#    /* Navbar link styling */#}
+{#    .nav-link {#}
+{#        color: white;#}
+{#        transition: color 0.3s ease-in-out; /* Smooth transition for hover effect */#}
+{#        background-color: #2C68B2; /* Darker blue for button-like appearance */#}
+{#        border-radius: 10px; /* Rounded corners for button-like appearance */#}
+{#        padding: 10px 15px; /* Padding to form button shapes */#}
+{#        margin: 0 10px; /* Space between buttons */#}
+{#        font-size: 18px;#}
+{#        font-weight: bold;#}
+{#    }#}
+{##}
+{#    /* Change color on hover to provide visual feedback */#}
+{#    .nav-link:hover,#}
+{#    .nav-link:focus {#}
+{#        background-color: #45a049; /* Even darker on hover */#}
+{#        color: #FFFFFF; /* Keeps text white for readability */#}
+{#    }#}
+{##}
+{#    /* Responsive toggle button styled to fit the navbar theme */#}
+{#    .navbar-toggler {#}
+{#        border-color: #B9DBF9; /* Light blue to stand out against the navbar */#}
+{#    }#}
+{##}
+{#    .navbar-toggler-icon {#}
+{#        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); /* Custom SVG for the toggler icon with white color */#}
+{#    }#}
+{##}
+{#    /* Media query for larger screens to adjust navbar padding */#}
+{#    @media (min-width: 992px) {#}
+{#        .navbar {#}
+{#            justify-content: space-between; /* Adjusts spacing to better fit larger screens */#}
+{#        }#}
+{#    }#}
+{#</style>#}
+{##}
+{#<!--Navbar-->#}
+{#<nav class="navbar navbar-expand-lg navbar-light bg-light">#}
+{#    <a class="navbar-brand" href="#">WebApps 2024</a>#}
+{#    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="False" aria-label="Toggle navigation">#}
+{#        <span class="navbar-toggler-icon"></span>#}
+{#    </button>#}
+{#    <div class="collapse navbar-collapse" id="navbarText">#}
+{#        <ul class="navbar-nav mr-auto">#}
+{#            {% if user.is_authenticated %}#}
+{##}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="/webapps2024/home">Home</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="#">Welcome, {{user.username}}</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="/webapps2024/payapp/transactions">View Transactions</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="/webapps2024/payapp/send">Send Money</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="/webapps2024/payapp/request">Request Money</a>#}
+{#                </li>#}
+{##}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="/webapps2024/payapp/requests">View Requests</a>#}
+{#                </li>#}
+{##}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="/webapps2024/logout">Logout</a>#}
+{#                </li>#}
+{##}
+{#                {% if user.is_superuser %}#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="/webapps2024/payapp/admin_home">Admin Home</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="/webapps2024/admin/register">Register Admin</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="/webapps2024/payapp/admin_requests">View All Requests</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="/webapps2024/payapp/admin_transactions">View All Transactions</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#            {% else %}#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="/webapps2024/login">Login</a>#}
+{#                </li>#}
+{#            {% endif %}#}
+{#        </table>#}
+{#    </div>#}
+{#</nav>#}
+{##}
+{#{% block content %}{% endblock %}#}
+{##}
+{#{% if messages %}#}
+{#    {% for message in messages %}#}
+{#        <div class="alert alert-warning alert-dismissible fade show" role="alert">#}
+{#            {{ message }}#}
+{#            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#{% endif %}#}
+{##}
+{#<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>#}
+{#</body>#}
+{#</html>#}

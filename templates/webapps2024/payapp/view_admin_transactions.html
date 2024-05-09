@@ -1,39 +1,10 @@
-{% comment extends 'base.html' %}
-{% load crispy_forms_filters %}
-
-{% block content %}
-
-    <h1>Admin Transactions</h1>
-
-    {% if transactions %}
-        <table>
-            <tr>
-                <th>Amount</th>
-                <th>Sender</th>
-                <th>Receiver</th>
-                <th>Date</th>
-            </tr>
-            {% for transaction in transactions %}
-            <tr>
-                <td>{{ transaction.amount }}</td>
-                <td>{{ transaction.sender }}</td>
-                <td>{{ transaction.receiver }}</td>
-                <td>{{ transaction.date }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>No transactions.</p>
-    {% endif %}
-
-{% endblock %}
-
-{% endcomment %}
-
-
+{# This template extends a base layout, pulling in common elements like headers and footers from 'base.html' #}
 {% extends 'base.html' %}
+
+{# Import functionality to utilise Django Crispy Forms for better form presentation #}
 {% load crispy_forms_filters %}
 
+{# Open the content block where the page-specific content is placed #}
 {% block content %}
     <style>
         body {
@@ -67,7 +38,7 @@
         }
     </style>
 
-    <h1>Admin Transactions</h1>
+    <h1>Admin Transactions</h1> <!-- Title of the section, clearly stating its focus -->
 
     {% if transactions %}
         <table>
@@ -79,7 +50,7 @@
             </tr>
             {% for transaction in transactions %}
                 <tr>
-                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.transaction_summary }}</td>
                     <td>{{ transaction.sender }}</td>
                     <td>{{ transaction.receiver }}</td>
                     <td>{{ transaction.date }}</td>
@@ -87,7 +58,39 @@
             {% endfor %}
         </table>
     {% else %}
+        <p>No transactions.</p> <!-- Friendly message if no transactions are available to display -->
+    {% endif %}
+
+{% endblock %}
+
+{% comment extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+    <h1>Admin Transactions</h1>
+
+    {% if transactions %}
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Date</th>
+            </tr>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.sender }}</td>
+                <td>{{ transaction.receiver }}</td>
+                <td>{{ transaction.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
         <p>No transactions.</p>
     {% endif %}
 
 {% endblock %}
+
+{% endcomment %}

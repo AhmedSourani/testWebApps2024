@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from django.template.context_processors import static
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,6 +32,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,11 +41,33 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'register.apps.RegisterConfig',
-    'payapp.apps.PayappConfig',
-    "crispy_forms",
-    "crispy_bootstrap5",
+    'rest_framework',             # Django REST Framework
+    'crispy_forms',               # Crispy forms
+    'crispy_bootstrap5',          # Crispy Bootstrap5
+    'register.apps.RegisterConfig',   # Correct way to include the register app
+    'payapp.apps.PayappConfig',       # Correct way to include the payapp
+    'conversion',
+
 ]
+
+
+
+# INSTALLED_APPS = [
+#     'django.contrib.admin',
+#     'django.contrib.auth',
+#     'django.contrib.contenttypes',
+#     'django.contrib.sessions',
+#     'django.contrib.messages',
+#     'django.contrib.staticfiles',
+#     'register.apps.RegisterConfig',
+#     'payapp.apps.PayappConfig',
+#     "crispy_forms",
+#     "crispy_bootstrap5",
+#
+#     'rest_framework',  # Django REST Framework
+#     'payapp',          # Assuming 'payapp' is the name of your app
+#     'register',        # And any other apps you have
+# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,9 +84,8 @@ ROOT_URLCONF = 'webapps2024.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / 'templates'], # Optionally add paths to specific template directories here
+        'APP_DIRS': True, # This should be True to automatically look in each app's 'templates' folder
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -130,3 +155,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    ]
+

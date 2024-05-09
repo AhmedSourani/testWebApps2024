@@ -1,6 +1,10 @@
+{# Extends 'base.html' to utilize a common layout across multiple pages, ensuring design consistency #}
 {% extends 'base.html' %}
+
+{# Load Crispy Forms library to enhance the form elements with better styling and functionality #}
 {% load crispy_forms_filters %}
 
+{# Main content block where page-specific content is defined #}
 {% block content %}
     <style>
         body {
@@ -34,7 +38,7 @@
         }
     </style>
 
-    <h1>Transactions</h1>
+    <h1>Transactions</h1> <!-- Main title of the page, providing clear context for the content below -->
 
     {% if transaction_in %}
         <h2>Incoming Transactions</h2>
@@ -47,7 +51,7 @@
             </tr>
             {% for transaction in transaction_in %}
                 <tr>
-                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.received_amount }}</td> <!-- Assuming 'received_amount' for incoming transactions -->
                     <td>{{ transaction.sender }}</td>
                     <td>{{ transaction.receiver }}</td>
                     <td>{{ transaction.date }}</td>
@@ -69,7 +73,7 @@
             </tr>
             {% for transaction in transaction_out %}
                 <tr>
-                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.sent_amount }}</td> <!-- Assuming 'sent_amount' for outgoing transactions -->
                     <td>{{ transaction.sender }}</td>
                     <td>{{ transaction.receiver }}</td>
                     <td>{{ transaction.date }}</td>

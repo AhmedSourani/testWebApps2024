@@ -1,6 +1,9 @@
+{# Extend the base layout from 'base.html' which likely includes common elements like header, footer, etc. #}
 {% extends 'base.html' %}
+{% comment load crispy_forms_tags %} {% endcomment %}
+{# Load the crispy_forms_filters to enhance form rendering with Django Crispy Forms #}
 {% load crispy_forms_filters %}
-
+{# Define the content block where page-specific content will be inserted #}
 {% block content %}
     <style>
         body {
@@ -31,12 +34,14 @@
             background-color: #45a049; /* A slightly darker green on hover */
         }
     </style>
+    
+    
 
-    <h1>Request Money</h1>
+    <h1>Request Money</h1> <!-- Main heading of the page -->
 
     <form method="post">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <button type="submit">Request Money</button>
+        {% csrf_token %} <!-- Include CSRF token for security -->
+        {{ form | crispy }} <!-- Render form fields using Crispy Forms for styling -->
+        <button type="submit">Request Money</button> <!-- Submit button for the form -->
     </form>
 {% endblock %}

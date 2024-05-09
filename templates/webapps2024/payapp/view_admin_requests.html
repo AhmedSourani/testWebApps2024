@@ -1,3 +1,74 @@
+{# Extend the basic layout from 'base.html' to include common structural elements #}
+{% extends 'base.html' %}
+
+{# Load additional functionality for rendering forms more elegantly with Django Crispy Forms #}
+{% load crispy_forms_filters %}
+
+{# Start defining the specific content for this page within the content block #}
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Consistent font family across all pages */
+        }
+        h1 {
+            color: #4A90E2; /* Consistent blue for header */
+            text-align: center; /* Center-align the header */
+        }
+        table {
+            width: 80%; /* Suitable table width */
+            margin: 20px auto; /* Center tables horizontally */
+            border-collapse: collapse; /* Neat table borders */
+            background-color: #f9f9f9; /* Light background for readability */
+        }
+        th, td {
+            border: 1px solid #ccc; /* Light gray border for definition */
+            padding: 8px; /* Spacing within cells */
+            text-align: left; /* Align text to the left within cells */
+        }
+        th {
+            background-color: #4CAF50; /* Green background for table headers */
+            color: white; /* White text for contrast */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Zebra striping for rows */
+        }
+        p {
+            text-align: center; /* Center-align paragraphs for consistency */
+            color: #4A90E2; /* Blue text for visual consistency */
+        }
+    </style>
+
+    <h1>Admin Requests</h1> <!-- Main heading of the page indicating its purpose -->
+
+    {% if requests %}
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Pending</th>
+                <th>Accepted</th>
+                <th>Requester</th>
+                <th>Giver</th>
+                <th>Date</th>
+            </tr>
+            {% for request in requests %}
+                <tr>
+                    <td>{{ request.amount }}</td>
+                    <td>{{ request.pending }}</td>
+                    <td>{{ request.accepted }}</td>
+                    <td>{{ request.requester }}</td>
+                    <td>{{ request.giver }}</td>
+                    <td>{{ request.date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No requests to show.</p>
+    {% endif %}
+
+{% endblock %}
+
+
+
 {% comment extends 'base.html' %}
 {% load crispy_forms_filters %}
 
@@ -35,67 +106,3 @@
 {% endcomment %}
 
 
-{% extends 'base.html' %}
-{% load crispy_forms_filters %}
-
-{% block content %}
-    <style>
-        body {
-            font-family: Arial, sans-serif; /* Consistent font family across all pages */
-        }
-        h1 {
-            color: #4A90E2; /* Consistent blue for header */
-            text-align: center; /* Center-align the header */
-        }
-        table {
-            width: 80%; /* Suitable table width */
-            margin: 20px auto; /* Center tables horizontally */
-            border-collapse: collapse; /* Neat table borders */
-            background-color: #f9f9f9; /* Light background for readability */
-        }
-        th, td {
-            border: 1px solid #ccc; /* Light gray border for definition */
-            padding: 8px; /* Spacing within cells */
-            text-align: left; /* Align text to the left within cells */
-        }
-        th {
-            background-color: #4CAF50; /* Green background for table headers */
-            color: white; /* White text for contrast */
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2; /* Zebra striping for rows */
-        }
-        p {
-            text-align: center; /* Center-align paragraphs for consistency */
-            color: #4A90E2; /* Blue text for visual consistency */
-        }
-    </style>
-
-    <h1>Admin Requests</h1>
-
-    {% if requests %}
-        <table>
-            <tr>
-                <th>Amount</th>
-                <th>Pending</th>
-                <th>Accepted</th>
-                <th>Requester</th>
-                <th>Giver</th>
-                <th>Date</th>
-            </tr>
-            {% for request in requests %}
-                <tr>
-                    <td>{{ request.amount }}</td>
-                    <td>{{ request.pending }}</td>
-                    <td>{{ request.accepted }}</td>
-                    <td>{{ request.requester }}</td>
-                    <td>{{ request.giver }}</td>
-                    <td>{{ request.date }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>No requests to show.</p>
-    {% endif %}
-
-{% endblock %}

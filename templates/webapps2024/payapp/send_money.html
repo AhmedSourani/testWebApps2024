@@ -1,6 +1,10 @@
+{# Extend the base template to inherit common layout elements defined in 'base.html' #}
 {% extends 'base.html' %}
+
+{# Load the crispy_forms_filters to enhance the appearance of forms using Django Crispy Forms #}
 {% load crispy_forms_filters %}
 
+{# Define the content block where the specific content for this page is defined #}
 {% block content %}
     <style>
         body {
@@ -32,11 +36,11 @@
         }
     </style>
 
-    <h1>Send Money</h1>
+    <h1>Send Money</h1> <!-- Heading of the page, clearly stating its purpose -->
 
     <form method="post">
-        {% csrf_token %}
-        {{ form | crispy }}  <!-- This will render the form fields with nice formatting -->
+        {% csrf_token %} <!-- Security feature to prevent CSRF attacks -->
+        {{ form | crispy }}  <!-- Renders the form fields with neat styling via Crispy Forms -->
         <button type="submit">Send Money</button>
     </form>
 {% endblock %}

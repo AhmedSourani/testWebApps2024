@@ -1,6 +1,9 @@
+{# Extend the basic layout from 'base.html' to incorporate common structural elements across pages #}
 {% extends 'base.html' %}
+{# Import Crispy Forms functionality to apply improved styling to Django forms #}
 {% load crispy_forms_filters %}
 
+{# Start defining the content for this specific page within the content block #}
 {% block content %}
     <style>
         body {
@@ -36,7 +39,7 @@
         }
     </style>
 
-    <h1>Login as Admin</h1>
+    <h1>Login as Admin</h1> !-- Page header indicating the action to be taken -->
 
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>

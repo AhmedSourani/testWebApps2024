@@ -17,8 +17,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('webapps2024/', include('register.urls')),
+#     path('webapps2024/payapp/', include('payapp.urls')),
+# ]
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('register/', include('register.urls')),
+#     path('payapp/', include('payapp.urls')),
+#     path('webapps2024/', include('register.urls')),  # This should include login path if defined inside register.urls
+#     path('api/', include('conversion.urls')),
+#     path('conversion/', include('conversion.urls')),
+# ]
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/', include('register.urls')),
+    path('payapp/', include('payapp.urls')),
     path('webapps2024/', include('register.urls')),
-    path('webapps2024/payapp/', include('payapp.urls')),
+    path('api/', include([
+        path('conversion/', include('conversion.urls')),
+    ])),
 ]
